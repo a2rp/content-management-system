@@ -1,4 +1,5 @@
 import { FiCoffee, FiFacebook, FiGithub, FiGlobe, FiHeart, FiLinkedin, FiMail, FiPackage, FiYoutube } from "react-icons/fi";
+import { Tooltip } from "react-tooltip";
 import styles from "./styles.module.css";
 
 const links = [
@@ -15,6 +16,12 @@ const links = [
   { label: "Source code", href: "https://github.com/a2rp/content-management-system", Icon: FiGithub },
 ];
 
+const tooltipDestination = (href) => {
+  if (href.startsWith("mailto:")) return href.slice(7);
+  const destination = new URL(href);
+  return `${destination.host}${destination.pathname}`.replace(/\/$/, "");
+};
+
 const Footer = () => (
   <footer className={styles.footer}>
     <div className={styles.copyright}>
@@ -25,11 +32,16 @@ const Footer = () => (
     </div>
     <nav className={styles.links} aria-label="Creator links">
       {links.map(({ label, href, Icon }) => (
-        <a key={label} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noreferrer" : undefined} aria-label={label} title={label}>
+        <a key={label} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noreferrer" : undefined} aria-label={label} data-tooltip-id="creator-links-tooltip" data-tooltip-content={`${label}\n${tooltipDestination(href)}`}>
           <Icon aria-hidden="true" />
         </a>
       ))}
     </nav>
+    <Tooltip id="creator-links-tooltip" place="top" delayShow={300} arrowColor="#272d27" className={styles.tooltip} render={({ content }) => {
+      if (!content) return null;
+      const [label, destination] = String(content).split("\n");
+      return <span className={styles.tooltipContent}><strong>{label}</strong><small>{destination}</small></span>;
+    }} />
   </footer>
 );
 

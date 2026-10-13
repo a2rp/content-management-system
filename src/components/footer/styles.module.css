@@ -8,5 +8,9 @@
 .links a{width:33px;height:33px;display:grid;place-items:center;border-radius:8px;color:#737a70;transition:color 140ms,background 140ms}
 .links a:hover{color:#ba5035;background:#f3e9df}
 .links svg{font-size:16px}
+.tooltip{z-index:300;max-width:250px;padding:9px 11px!important;border:1px solid #444b43;border-radius:9px!important;color:#fff!important;background:#272d27!important;box-shadow:0 8px 24px rgb(25 30 25 / 24%);opacity:1!important}
+.tooltipContent{display:grid;gap:3px;white-space:normal}
+.tooltipContent strong{color:#fff;font-size:13px;font-weight:750;line-height:1.35}
+.tooltipContent small{color:#c9d0c4;font-size:13px;line-height:1.35;overflow-wrap:anywhere}
 @media(max-width:980px){.footer{padding-inline:22px;align-items:flex-start;flex-direction:column}.links{justify-content:flex-start}}
 @media(max-width:560px){.footer{padding:17px 14px}.copyright{align-items:flex-start}.copyright p{white-space:normal;line-height:1.5}.links{gap:3px}.links a{width:31px;height:31px}}
