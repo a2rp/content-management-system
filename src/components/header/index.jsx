@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { FiCalendar, FiEdit3, FiGrid, FiMenu, FiSearch, FiX } from "react-icons/fi";
+import { FiCalendar, FiEdit3, FiGithub, FiGrid, FiMenu, FiSearch, FiX } from "react-icons/fi";
 import styles from "./styles.module.css";
 
 const links = [
@@ -72,6 +72,7 @@ const Header = ({ reviewCount, searchValue, onSearchChange, onSearch, onNewConte
             <kbd>Ctrl K</kbd>
             <button className={styles.searchButton} type="button" aria-label="Open content search" onClick={() => { setSearchOpen(true); window.setTimeout(() => searchInput.current?.focus(), 0); }}><FiSearch /></button>
           </form>
+          <a className={styles.repoLink} href="https://github.com/a2rp/content-management-system" target="_blank" rel="noreferrer" aria-label="Open the content-management-system GitHub repository"><FiGithub aria-hidden="true" /><span>Repository</span></a>
           <button className={styles.newButton} type="button" onClick={() => { setMenuOpen(false); onNewContent(); }}><FiEdit3 aria-hidden="true" /> New story</button>
           <div className={styles.profile} aria-label="Signed in as Mara Ellis"><span>ME</span><small>Mara Ellis</small></div>
           <button className={styles.menuButton} type="button" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} onClick={() => setMenuOpen((open) => !open)}>{menuOpen ? <FiX /> : <FiMenu />}</button>

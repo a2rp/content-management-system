@@ -20,6 +20,9 @@
 .search input::placeholder{color:#93968e;opacity:1}
 .search kbd{padding:3px 5px;border:1px solid #e8e7e0;border-radius:5px;color:#8a8e84;font-family:inherit;font-size:13px;white-space:nowrap}
 .searchButton{display:none;width:38px;height:38px;place-items:center;border:0;border-radius:8px;color:#656d62;background:transparent;font-size:19px}
+.repoLink{height:40px;padding:0 10px;display:flex;align-items:center;gap:7px;border:1px solid #e2e1d8;border-radius:9px;color:#50574e;background:#fff;font-size:13px;font-weight:700;white-space:nowrap;transition:border-color 150ms,box-shadow 150ms,color 150ms}
+.repoLink:hover{border-color:#c9c9bd;box-shadow:0 3px 12px rgb(40 45 38 / 7%);color:#29312a}
+.repoLink svg{font-size:16px}
 .newButton{height:42px;padding:0 13px;display:flex;align-items:center;gap:7px;border:1px solid #d55c3d;border-radius:9px;color:#fff;background:#d55c3d;font-size:14px;font-weight:700;white-space:nowrap;transition:background 150ms}
 .newButton:hover{background:#b94b31}
 .newButton svg{font-size:16px}
