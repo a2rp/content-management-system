@@ -46,7 +46,7 @@ const StoryForm = ({ initialStory, defaultDate, defaultStatus, onSubmit, onCance
   };
 
   return (
-    <form className={styles.form} onSubmit={submit}>
+    <form className={styles.form} noValidate onSubmit={submit}>
       <div className={styles.intro}><span><FiFileText aria-hidden="true" /></span><p>Give this piece a clear headline, a useful summary, and a place on the publishing calendar.</p></div>
       <label className={styles.field}>Headline<input autoFocus required maxLength={90} value={title} onChange={(event) => setTitle(event.target.value)} placeholder="e.g. A studio visit with North Coast Press" /></label>
       <label className={styles.field}>Short summary<textarea required rows="2" maxLength={180} value={excerpt} onChange={(event) => setExcerpt(event.target.value)} placeholder="A short description for the content library" /><small>{excerpt.length} / 180</small></label>
