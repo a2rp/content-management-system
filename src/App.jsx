@@ -1,19 +1,15 @@
-import { lazy, Suspense, useCallback, useEffect, useState } from "react";
-import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { useCallback, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import AppRoutes from "./AppRoutes";
 import Footer from "./components/footer";
 import Header from "./components/header";
-import Loading from "./components/loading";
 import Modal, { ConfirmDialog } from "./components/modal";
 import ReviewForm from "./components/reviewform";
+import ScrollToTop from "./components/scrollToTop";
 import StoryForm from "./components/storyform";
 import Toast from "./components/toast";
 import { initialStories } from "./data";
 import styles from "./App.module.css";
-
-const Overview = lazy(() => import("./pages/overview"));
-const Calendar = lazy(() => import("./pages/calendar"));
-const Library = lazy(() => import("./pages/library"));
-const Reviews = lazy(() => import("./pages/reviews"));
 
 const App = () => {
   const [stories, setStories] = useState(initialStories);
@@ -22,11 +18,6 @@ const App = () => {
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [toast, setToast] = useState({ message: "", tone: "success" });
   const navigate = useNavigate();
-  const location = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
 
   const notify = useCallback((message, tone = "success") => setToast({ message, tone }), []);
   const closeDialog = () => setDialog(null);
@@ -92,17 +83,21 @@ const App = () => {
         onSearch={submitSearch}
         onNewContent={() => newStory()}
       />
-      <main className={styles.main}>
-        <Suspense fallback={<Loading />}>
-          <Routes>
-            <Route path="/" element={<Navigate to="/overview" replace />} />
-            <Route path="/overview" element={<Overview stories={stories} onNewContent={() => newStory()} onOpenStory={openStory} />} />
-            <Route path="/calendar" element={<Calendar stories={stories} onNewStory={(date) => newStory(date)} onOpenStory={openStory} />} />
-            <Route path="/library" element={<Library stories={stories} query={query} onQueryChange={setQuery} onNewStory={() => newStory()} onEditStory={editStory} onOpenStory={openStory} onDeleteStory={setDeleteTarget} onUpdateStatus={updateStatus} />} />
-            <Route path="/reviews" element={<Reviews stories={stories} onApprove={approveStory} onRequestChanges={requestChanges} onEditStory={editStory} />} />
-            <Route path="*" element={<Navigate to="/overview" replace />} />
-          </Routes>
-        </Suspense>
+      <ScrollToTop />
+      <main id="main-content" className={styles.main}>
+        <AppRoutes
+          stories={stories}
+          query={query}
+          onQueryChange={setQuery}
+          onNewContent={() => newStory()}
+          onNewStory={(date) => newStory(date)}
+          onEditStory={editStory}
+          onOpenStory={openStory}
+          onDeleteStory={setDeleteTarget}
+          onUpdateStatus={updateStatus}
+          onApprove={approveStory}
+          onRequestChanges={requestChanges}
+        />
       </main>
       <Footer />
 
