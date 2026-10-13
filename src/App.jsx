@@ -1,122 +1,119 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
+import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import Footer from "./components/footer";
+import Header from "./components/header";
+import Loading from "./components/loading";
+import Modal, { ConfirmDialog } from "./components/modal";
+import ReviewForm from "./components/reviewform";
+import StoryForm from "./components/storyform";
+import Toast from "./components/toast";
+import { initialStories } from "./data";
+import styles from "./App.module.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+const Overview = lazy(() => import("./pages/overview"));
+const Calendar = lazy(() => import("./pages/calendar"));
+const Library = lazy(() => import("./pages/library"));
+const Reviews = lazy(() => import("./pages/reviews"));
+
+const App = () => {
+  const [stories, setStories] = useState(initialStories);
+  const [query, setQuery] = useState("");
+  const [dialog, setDialog] = useState(null);
+  const [deleteTarget, setDeleteTarget] = useState(null);
+  const [toast, setToast] = useState({ message: "", tone: "success" });
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  const notify = useCallback((message, tone = "success") => setToast({ message, tone }), []);
+  const closeDialog = () => setDialog(null);
+  const newStory = (date, status) => setDialog({ type: "create", date, status });
+  const editStory = (story) => setDialog({ type: "edit", story });
+  const openStory = (story) => setDialog({ type: "view", story });
+
+  const createStory = (story) => {
+    const nextStory = { ...story, id: `MOR-${String(Date.now()).slice(-4)}` };
+    setStories((current) => [nextStory, ...current]);
+    closeDialog();
+    notify("Your story is in the editorial library.");
+  };
+
+  const updateStory = (updatedStory) => {
+    setStories((current) => current.map((story) => story.id === updatedStory.id ? updatedStory : story));
+    closeDialog();
+    notify("Story updates are ready for this visit.");
+  };
+
+  const updateStatus = (storyId, status) => {
+    setStories((current) => current.map((story) => story.id === storyId ? {
+      ...story,
+      status,
+      reviewNote: status === "Changes requested" ? story.reviewNote : "",
+      updated: "Just now",
+    } : story));
+    notify(`Story moved to ${status.toLowerCase()}.`);
+  };
+
+  const approveStory = (story) => {
+    setStories((current) => current.map((item) => item.id === story.id ? { ...item, status: "Scheduled", reviewNote: "", updated: "Just now" } : item));
+    notify("Approved and added to the publishing calendar.");
+  };
+
+  const requestChanges = (story) => setDialog({ type: "review", story });
+  const submitReview = (note) => {
+    const storyId = dialog.story.id;
+    setStories((current) => current.map((story) => story.id === storyId ? { ...story, status: "Changes requested", reviewNote: note, updated: "Just now" } : story));
+    closeDialog();
+    notify("Review note sent to the story owner.");
+  };
+
+  const confirmDelete = () => {
+    setStories((current) => current.filter((story) => story.id !== deleteTarget.id));
+    setDeleteTarget(null);
+    notify("Story removed from the library.");
+  };
+
+  const submitSearch = (value) => {
+    setQuery(value);
+    navigate("/library");
+  };
+
+  const reviewCount = stories.filter((story) => story.status === "In review").length;
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className={styles.app}>
+      <Header
+        reviewCount={reviewCount}
+        searchValue={query}
+        onSearchChange={setQuery}
+        onSearch={submitSearch}
+        onNewContent={() => newStory()}
+      />
+      <main className={styles.main}>
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            <Route path="/" element={<Navigate to="/overview" replace />} />
+            <Route path="/overview" element={<Overview stories={stories} onNewContent={() => newStory()} onOpenStory={openStory} />} />
+            <Route path="/calendar" element={<Calendar stories={stories} onNewStory={(date) => newStory(date)} onOpenStory={openStory} />} />
+            <Route path="/library" element={<Library stories={stories} query={query} onQueryChange={setQuery} onNewStory={() => newStory()} onEditStory={editStory} onOpenStory={openStory} onDeleteStory={setDeleteTarget} onUpdateStatus={updateStatus} />} />
+            <Route path="/reviews" element={<Reviews stories={stories} onApprove={approveStory} onRequestChanges={requestChanges} onEditStory={editStory} />} />
+            <Route path="*" element={<Navigate to="/overview" replace />} />
+          </Routes>
+        </Suspense>
+      </main>
+      <Footer />
 
-      <div className="ticks"></div>
+      {dialog?.type === "create" ? <Modal title="Write a new story" description="Shape a new piece for the Morrow editorial calendar." onClose={closeDialog} size="large"><StoryForm defaultDate={dialog.date} defaultStatus={dialog.status} onSubmit={createStory} onCancel={closeDialog} /></Modal> : null}
+      {dialog?.type === "edit" ? <Modal title="Edit story" description="Update the headline, draft, owner, or publishing plan." onClose={closeDialog} size="large"><StoryForm key={dialog.story.id} initialStory={dialog.story} onSubmit={updateStory} onCancel={closeDialog} /></Modal> : null}
+      {dialog?.type === "review" ? <Modal title="Request a revision" description="Give the author a specific, considerate next step." onClose={closeDialog}><ReviewForm story={dialog.story} onSubmit={submitReview} onCancel={closeDialog} /></Modal> : null}
+      {dialog?.type === "view" ? <Modal title={dialog.story.title} description={`${dialog.story.type} · ${dialog.story.id}`} onClose={closeDialog} size="large"><article className={styles.storyView}><div className={styles.storyMeta}><span>{dialog.story.status}</span><span>{dialog.story.author}</span><span>{dialog.story.date}</span></div><p className={styles.storyExcerpt}>{dialog.story.excerpt}</p><p className={styles.storyBody}>{dialog.story.body}</p><button type="button" onClick={() => editStory(dialog.story)}>Edit this story</button></article></Modal> : null}
+      {deleteTarget ? <ConfirmDialog title="Remove this story?" description={`“${deleteTarget.title}” will be removed from the library for this visit.`} confirmLabel="Remove story" onConfirm={confirmDelete} onClose={() => setDeleteTarget(null)} /> : null}
+      <Toast message={toast.message} tone={toast.tone} onDismiss={() => setToast({ message: "", tone: "success" })} />
+    </div>
+  );
+};
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
-}
-
-export default App
+export default App;

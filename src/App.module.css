@@ -1,0 +1,9 @@
+.app{min-height:100vh;display:flex;flex-direction:column;background:#f8f7f2}
+.main{width:100%;flex:1;padding-top:82px}
+.storyView{display:grid;gap:18px;color:#454c42}
+.storyMeta{display:flex;flex-wrap:wrap;gap:8px}
+.storyMeta span{padding:6px 9px;border-radius:7px;color:#6c735f;background:#f0efe8;font-size:13px}
+.storyExcerpt{color:#62695e;font-family:Georgia,serif;font-size:21px;line-height:1.5}
+.storyBody{color:#4f574d;font-family:Georgia,serif;font-size:17px;line-height:1.8;white-space:pre-line}
+.storyView button{justify-self:start;min-height:42px;padding:0 14px;border:0;border-radius:8px;color:#fff;background:#3e6244;font-size:14px;font-weight:700}
+@media(max-width:700px){.main{padding-top:70px}.storyExcerpt{font-size:19px}.storyBody{font-size:16px}}
