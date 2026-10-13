@@ -1,5 +1,5 @@
 .backdrop{position:fixed;z-index:200;inset:0;padding:22px;display:grid;place-items:center;overflow:auto;background:rgb(29 34 29 / 46%);backdrop-filter:blur(5px)}
-.dialog{width:min(100%,580px);max-height:min(90vh,840px);display:flex;flex-direction:column;overflow:hidden;border:1px solid #eeece3;border-radius:18px;background:#fffefa;box-shadow:0 25px 80px rgb(32 38 31 / 24%);animation:appear 180ms ease-out}
+.dialog{width:min(100%,580px);max-height:min(94vh,940px);display:flex;flex-direction:column;overflow:hidden;border:1px solid #eeece3;border-radius:18px;background:#fffefa;box-shadow:0 25px 80px rgb(32 38 31 / 24%);animation:appear 180ms ease-out}
 .large{width:min(100%,760px)}
 .header{min-height:78px;padding:20px 23px;display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid #e9e7de}
 .header h2{color:#292f29;font-family:Georgia,serif;font-size:22px;font-weight:700;letter-spacing:-.3px}
