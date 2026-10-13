@@ -1,0 +1,31 @@
+.header{position:fixed;z-index:50;top:0;right:0;left:0;height:82px;border-bottom:1px solid #e8e6dc;background:rgb(250 249 244 / 94%);backdrop-filter:blur(16px);transition:transform 220ms ease}
+.hidden{transform:translateY(-105%)}
+.menuOpen{transform:translateY(0)}
+.inner{width:min(100% - 64px,1480px);height:100%;margin:auto;display:flex;align-items:center;gap:38px}
+.brand{min-width:190px;display:flex;align-items:center;gap:10px;color:#222822}
+.mark{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;color:#fff;background:#d55c3d;font-size:18px}
+.brand>span:last-child{display:grid;gap:1px}
+.brand strong{font-family:Georgia,serif;font-size:22px;font-weight:700;letter-spacing:-.7px}
+.brand small{color:#85897f;font-size:13px;font-weight:700;letter-spacing:1px}
+.nav{height:100%;display:flex;align-items:center;gap:5px}
+.navLink{position:relative;height:100%;padding:0 14px;display:flex;align-items:center;gap:8px;color:#7a7e74;font-size:14px;font-weight:650;white-space:nowrap;transition:color 150ms}
+.navLink:hover,.active{color:#29312a}
+.active:after{position:absolute;right:14px;bottom:0;left:14px;height:3px;border-radius:3px 3px 0 0;background:#d55c3d;content:""}
+.navLink svg{font-size:16px}
+.badge{min-width:21px;height:21px;padding:0 5px;display:grid;place-items:center;border-radius:7px;color:#a8432f;background:#f7e3dc;font-size:13px;font-weight:750}
+.actions{margin-left:auto;display:flex;align-items:center;gap:12px}
+.search{width:230px;height:42px;padding:0 10px;display:flex;align-items:center;gap:8px;border:1px solid #e2e1d8;border-radius:9px;color:#8c9087;background:#fff}
+.search>svg{flex:0 0 auto;font-size:17px}
+.search input{width:100%;min-width:0;border:0;outline:0;color:#2d342d;background:transparent;font-size:14px}
+.search input::placeholder{color:#93968e;opacity:1}
+.search kbd{padding:3px 5px;border:1px solid #e8e7e0;border-radius:5px;color:#8a8e84;font-family:inherit;font-size:13px;white-space:nowrap}
+.searchButton{display:none;width:38px;height:38px;place-items:center;border:0;border-radius:8px;color:#656d62;background:transparent;font-size:19px}
+.newButton{height:42px;padding:0 13px;display:flex;align-items:center;gap:7px;border:1px solid #d55c3d;border-radius:9px;color:#fff;background:#d55c3d;font-size:14px;font-weight:700;white-space:nowrap;transition:background 150ms}
+.newButton:hover{background:#b94b31}
+.newButton svg{font-size:16px}
+.profile{display:flex;align-items:center;gap:8px;color:#50574e;font-size:13px;font-weight:650;white-space:nowrap}
+.profile>span{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;color:#8c503f;background:#f2ded5;font-size:13px;font-weight:800}
+.menuButton{display:none;width:40px;height:40px;place-items:center;border:1px solid #e2e1d8;border-radius:9px;color:#394039;background:#fff;font-size:19px}
+@media(max-width:1160px){.inner{width:calc(100% - 40px);gap:18px}.brand{min-width:160px}.navLink{padding-inline:10px}.active:after{right:10px;left:10px}.search{width:190px}.profile small{display:none}}
+@media(max-width:850px){.inner{width:calc(100% - 32px);gap:12px}.brand{min-width:140px}.brand strong{font-size:21px}.nav{display:none}.menuButton{display:grid}.actions{gap:8px}.search{width:min(34vw,200px)}.profile{display:none}.menuOpen .nav{position:absolute;top:72px;right:16px;left:16px;height:auto;padding:8px;display:grid;gap:3px;border:1px solid #e8e6dc;border-radius:13px;background:#fff;box-shadow:0 16px 38px rgb(40 45 38 / 14%)}.menuOpen .navLink{height:48px;padding-inline:12px;border-radius:8px}.menuOpen .navLink:hover,.menuOpen .active{background:#f8f4ec}.menuOpen .active:after{display:none}}
+@media(max-width:560px){.header{height:72px}.inner{width:calc(100% - 24px);gap:8px}.brand{min-width:0}.mark{width:35px;height:35px}.brand strong{font-size:20px}.brand small{font-size:13px}.search{position:static;width:auto;height:auto;padding:0;justify-content:center;border:0;background:transparent}.search>svg,.search input,.search kbd{display:none}.searchButton{display:grid}.searchOpen{position:absolute;top:71px;right:12px;left:12px;height:48px;padding:0 12px;display:flex;justify-content:flex-start;border:1px solid #e2e1d8;border-radius:10px;background:#fff;box-shadow:0 12px 30px rgb(40 45 38 / 12%)}.searchOpen>svg,.searchOpen input{display:block}.searchOpen .searchButton{display:none}.newButton{width:40px;height:40px;padding:0;justify-content:center;font-size:0}.newButton svg{font-size:17px}.actions{gap:5px}.menuButton{width:38px;height:38px}}
