@@ -1,10 +1,20 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import { OverlayScrollbars } from "overlayscrollbars";
+import "overlayscrollbars/overlayscrollbars.css";
+import App from "./App.jsx";
+import "./index.css";
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
+OverlayScrollbars(document.body, {
+  scrollbars: {
+    theme: "os-theme-morrow",
+    autoHide: "move",
+    autoHideSuspend: false,
+  },
+});
+
+createRoot(document.getElementById("root")).render(
+  <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, "")}>
     <App />
-  </StrictMode>,
-)
+  </BrowserRouter>,
+);
