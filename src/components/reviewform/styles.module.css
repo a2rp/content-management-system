@@ -1,0 +1,15 @@
+.form{display:grid;gap:15px}
+.storyName{padding:12px;display:flex;align-items:center;gap:10px;border-radius:10px;background:#f4f2e9}
+.storyName>svg{color:#b8563b;font-size:19px}
+.storyName>span{min-width:0;display:grid;gap:4px}.storyName strong{overflow:hidden;color:#353c33;font-size:14px;text-overflow:ellipsis;white-space:nowrap}.storyName small{color:#858a7f;font-size:13px}
+.form label{display:grid;gap:7px;color:#343c34;font-size:14px;font-weight:700}
+.form textarea{width:100%;min-height:110px;padding:10px 11px;border:1px solid #e0ded4;border-radius:8px;outline:0;color:#30372f;background:#fff;font-size:14px;line-height:1.5;resize:vertical}
+.form textarea:focus{border-color:#bc755d;box-shadow:0 0 0 3px rgb(190 99 71 / 12%)}
+.form textarea::placeholder{color:#92958c;opacity:1}
+.form label>small{justify-self:end;color:#8a8e83;font-size:13px;font-weight:500}
+.helper{color:#797f74;font-size:13px;line-height:1.5}
+.error{padding:9px 11px;border-radius:8px;color:#a74634;background:#fff1ec;font-size:14px}
+.actions{display:flex;justify-content:flex-end;gap:9px}
+.actions button{min-height:41px;padding:0 13px;border:1px solid #dfddd3;border-radius:9px;font-size:14px;font-weight:700}
+.cancel{color:#5e655b;background:#fff}.submit{display:flex;align-items:center;gap:7px;border-color:#3d6244!important;color:#fff;background:#3d6244}
+@media(max-width:560px){.actions{flex-direction:column-reverse}.actions button{width:100%}}
