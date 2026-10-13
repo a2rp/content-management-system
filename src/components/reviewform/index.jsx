@@ -16,7 +16,7 @@ const ReviewForm = ({ story, onSubmit, onCancel }) => {
   };
 
   return (
-    <form className={styles.form} onSubmit={submit}>
+    <form className={styles.form} noValidate onSubmit={submit}>
       <div className={styles.storyName}><FiMessageSquare aria-hidden="true" /><span><strong>{story.title}</strong><small>By {story.author}</small></span></div>
       <label>Notes for the author<textarea autoFocus required maxLength={400} rows="5" value={note} onChange={(event) => setNote(event.target.value)} placeholder="Share a clear, kind note about what could be stronger..." /><small>{note.length} / 400</small></label>
       {error && <p className={styles.error} role="alert">{error}</p>}
