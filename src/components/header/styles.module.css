@@ -10,7 +10,8 @@
 .nav{height:100%;display:flex;align-items:center;gap:5px}
 .navLink{position:relative;height:100%;padding:0 14px;display:flex;align-items:center;gap:8px;color:#7a7e74;font-size:14px;font-weight:650;white-space:nowrap;transition:color 150ms}
 .navLink:hover,.active{color:#29312a}
-.active:after{position:absolute;right:14px;bottom:0;left:14px;height:3px;border-radius:3px 3px 0 0;background:#d55c3d;content:""}
+.navLink:after{position:absolute;right:14px;bottom:0;left:14px;height:3px;border-radius:999px;background:linear-gradient(90deg,#386e49,#9db878);content:"";transform:scaleX(0);transform-origin:left;transition:transform 180ms ease}
+.navLink:hover:after,.navLink:focus-visible:after,.active:after{transform:scaleX(1)}
 .navLink svg{font-size:16px}
 .badge{min-width:21px;height:21px;padding:0 5px;display:grid;place-items:center;border-radius:7px;color:#a8432f;background:#f7e3dc;font-size:13px;font-weight:750}
 .actions{margin-left:auto;display:flex;align-items:center;gap:12px}
