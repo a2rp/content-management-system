@@ -5,19 +5,19 @@ import styles from "./styles.module.css";
 
 const authors = ["Mara Ellis", "Anika Rao", "Sofia Bennett", "Theo Martin"];
 const today = () => new Date().toISOString().slice(0, 10);
-const defaultDate = () => {
+const getDefaultDate = () => {
   const date = new Date();
   date.setDate(date.getDate() + 2);
   return date.toISOString().slice(0, 10);
 };
 
-const StoryForm = ({ initialStory, onSubmit, onCancel }) => {
+const StoryForm = ({ initialStory, defaultDate, defaultStatus, onSubmit, onCancel }) => {
   const [title, setTitle] = useState(initialStory?.title || "");
   const [excerpt, setExcerpt] = useState(initialStory?.excerpt || "");
   const [type, setType] = useState(initialStory?.type || contentTypes[0]);
-  const [status, setStatus] = useState(initialStory?.status || "Draft");
+  const [status, setStatus] = useState(initialStory?.status || defaultStatus || "Draft");
   const [author, setAuthor] = useState(initialStory?.author || authors[0]);
-  const [date, setDate] = useState(initialStory?.date || defaultDate());
+  const [date, setDate] = useState(initialStory?.date || defaultDate || getDefaultDate());
   const [body, setBody] = useState(initialStory?.body || "");
   const [error, setError] = useState("");
 
