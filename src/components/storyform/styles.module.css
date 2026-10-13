@@ -1,0 +1,21 @@
+.form{display:grid;gap:16px}
+.intro{min-height:58px;padding:10px 12px;display:flex;align-items:center;gap:10px;border-radius:10px;background:#f4f3eb}
+.intro>span{width:34px;height:34px;flex:0 0 auto;display:grid;place-items:center;border-radius:9px;color:#b65037;background:#f2e1d8;font-size:17px}
+.intro p{color:#666e63;font-size:14px;line-height:1.5}
+.field{position:relative;display:grid;gap:7px;color:#343c34;font-size:14px;font-weight:700}
+.field input,.field select,.field textarea{width:100%;min-height:43px;padding:0 11px;border:1px solid #e0ded4;border-radius:8px;outline:0;color:#30372f;background:#fff;font-size:14px;font-weight:500}
+.field textarea{min-height:82px;padding:10px 11px;line-height:1.5;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#bc755d;box-shadow:0 0 0 3px rgb(190 99 71 / 12%)}
+.field input::placeholder,.field textarea::placeholder{color:#92958c;opacity:1}
+.field>small{justify-self:end;color:#8a8e83;font-size:13px;font-weight:500}
+.columns{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.dateField{position:relative}
+.dateField>svg{position:absolute;top:13px;left:11px;color:#798176;font-size:16px}
+.dateField input{padding-left:34px}
+.error{padding:10px 12px;border-radius:8px;color:#a74634;background:#fff1ec;font-size:14px;line-height:1.45}
+.actions{padding-top:3px;display:flex;justify-content:flex-end;gap:9px}
+.actions button{min-height:42px;padding:0 14px;display:flex;align-items:center;justify-content:center;gap:7px;border:1px solid #dfddd3;border-radius:9px;font-size:14px;font-weight:700}
+.cancel{color:#5e655b;background:#fff}
+.save{border-color:#3d6244!important;color:#fff;background:#3d6244}
+.save:hover{background:#2f5036}
+@media(max-width:560px){.columns{grid-template-columns:1fr}.actions{flex-direction:column-reverse}.actions button{width:100%}}
