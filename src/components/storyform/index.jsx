@@ -58,7 +58,7 @@ const StoryForm = ({ initialStory, defaultDate, defaultStatus, onSubmit, onCance
         <label className={styles.field}>Owner<select value={author} onChange={(event) => setAuthor(event.target.value)}>{authors.map((item) => <option key={item}>{item}</option>)}</select></label>
         <label className={styles.field}>Publish date<span className={styles.dateField}><FiCalendar aria-hidden="true" /><input type="date" required value={date} onChange={(event) => setDate(event.target.value)} /></span></label>
       </div>
-      <label className={styles.field}>Story text<textarea required rows="7" maxLength="3000" value={body} onChange={(event) => setBody(event.target.value)} placeholder="Write the first draft here..." /><small>{body.length} / 3000</small></label>
+      <label className={styles.field}>Story text<textarea required rows="5" maxLength="3000" value={body} onChange={(event) => setBody(event.target.value)} placeholder="Write the first draft here..." /><small>{body.length} / 3000</small></label>
       {error && <p className={styles.error} role="alert">{error}</p>}
       <div className={styles.actions}><button type="button" className={styles.cancel} onClick={onCancel}>Cancel</button><button type="submit" className={styles.save}><FiSend aria-hidden="true" /> {initialStory ? "Save changes" : "Create story"} <FiCheck aria-hidden="true" /></button></div>
     </form>

@@ -1,4 +1,4 @@
-.form{display:grid;gap:16px}
+.form{display:grid;gap:12px}
 .intro{min-height:58px;padding:10px 12px;display:flex;align-items:center;gap:10px;border-radius:10px;background:#f4f3eb}
 .intro>span{width:34px;height:34px;flex:0 0 auto;display:grid;place-items:center;border-radius:9px;color:#b65037;background:#f2e1d8;font-size:17px}
 .intro p{color:#666e63;font-size:14px;line-height:1.5}
