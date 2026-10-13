@@ -1,0 +1,20 @@
+.backdrop{position:fixed;z-index:200;inset:0;padding:22px;display:grid;place-items:center;overflow:auto;background:rgb(29 34 29 / 46%);backdrop-filter:blur(5px)}
+.dialog{width:min(100%,580px);max-height:min(90vh,840px);display:flex;flex-direction:column;overflow:hidden;border:1px solid #eeece3;border-radius:18px;background:#fffefa;box-shadow:0 25px 80px rgb(32 38 31 / 24%);animation:appear 180ms ease-out}
+.large{width:min(100%,760px)}
+.header{min-height:78px;padding:20px 23px;display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid #e9e7de}
+.header h2{color:#292f29;font-family:Georgia,serif;font-size:22px;font-weight:700;letter-spacing:-.3px}
+.header p{margin-top:5px;color:#7c8177;font-size:14px;line-height:1.45}
+.closeButton{width:36px;height:36px;flex:0 0 auto;display:grid;place-items:center;border:1px solid #e3e1d8;border-radius:9px;color:#72776e;background:#fff;font-size:17px}
+.closeButton:hover{border-color:#ca6548;color:#bc5037}
+.body{padding:23px;overflow-y:auto}
+.confirmation{display:grid;gap:22px}
+.warningIcon{width:46px;height:46px;display:grid;place-items:center;border-radius:13px;color:#bd5238;background:#f9e9e1;font-size:22px}
+.actions{display:flex;justify-content:flex-end;gap:9px}
+.actions button{min-height:42px;padding:0 15px;border:1px solid #e2e0d7;border-radius:9px;color:#555c53;background:#fff;font-size:14px;font-weight:700}
+.actions button:hover{border-color:#c9c7bc}
+.dangerButton{border-color:#c65238!important;color:#fff!important;background:#c65238!important}
+.dangerButton:hover{border-color:#a9432c!important;background:#a9432c!important}
+.primaryButton{border-color:#3e6244!important;color:#fff!important;background:#3e6244!important}
+@keyframes appear{from{opacity:0;transform:translateY(8px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:560px){.backdrop{padding:10px}.header{padding:18px}.body{padding:18px}.actions{flex-direction:column-reverse}.actions button{width:100%}}
+@media(prefers-reduced-motion:reduce){.dialog{animation:none}}
