@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { FiCalendar, FiCheck, FiFileText, FiSend } from "react-icons/fi";
-import { contentStatuses, contentTypes } from "../../data";
+import { contentStatuses, contentTypes, toLocalDateValue } from "../../data";
 import styles from "./styles.module.css";
 
 const authors = ["Mara Ellis", "Anika Rao", "Sofia Bennett", "Theo Martin"];
-const today = () => new Date().toISOString().slice(0, 10);
+const today = () => toLocalDateValue(new Date());
 const getDefaultDate = () => {
   const date = new Date();
   date.setDate(date.getDate() + 2);
-  return date.toISOString().slice(0, 10);
+  return toLocalDateValue(date);
 };
 
 const StoryForm = ({ initialStory, defaultDate, defaultStatus, onSubmit, onCancel }) => {

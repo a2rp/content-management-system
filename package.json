@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "homepage": "https://a2rp.github.io/content-management-system",
-  "description": "An editorial workspace for planning, reviewing, and publishing content.",
+  "description": "Frontend editorial workspace for planning, drafting, reviewing, and scheduling content.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

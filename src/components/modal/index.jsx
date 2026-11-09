@@ -11,6 +11,7 @@ const Modal = ({ title, description, onClose, children, size = "medium" }) => {
   }, [onClose]);
 
   useEffect(() => {
+    const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const focusableSelector = "button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), a[href]";
@@ -29,10 +30,14 @@ const Modal = ({ title, description, onClose, children, size = "medium" }) => {
         dialogRef.current.focus();
         return;
       }
-      if (event.shiftKey && document.activeElement === focusable[0]) {
+      const activeIndex = focusable.indexOf(document.activeElement);
+      if (activeIndex === -1) {
+        event.preventDefault();
+        (event.shiftKey ? focusable.at(-1) : focusable[0]).focus();
+      } else if (event.shiftKey && activeIndex === 0) {
         event.preventDefault();
         focusable.at(-1).focus();
-      } else if (!event.shiftKey && document.activeElement === focusable.at(-1)) {
+      } else if (!event.shiftKey && activeIndex === focusable.length - 1) {
         event.preventDefault();
         focusable[0].focus();
       }
@@ -41,6 +46,7 @@ const Modal = ({ title, description, onClose, children, size = "medium" }) => {
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyboard);
+      if (previouslyFocused?.isConnected) previouslyFocused.focus();
     };
   }, []);
 

@@ -5,9 +5,15 @@ import styles from "./styles.module.css";
 
 const statusFilters = ["All content", ...contentStatuses];
 
+const csvCell = (cell) => {
+  const value = String(cell);
+  const safeValue = /^[\t\r\n ]*[=+\-@]/.test(value) ? `'${value}` : value;
+  return `"${safeValue.replaceAll('"', '""')}"`;
+};
+
 const exportStories = (stories) => {
   const rows = [["ID", "Headline", "Type", "Status", "Owner", "Publish date"], ...stories.map((story) => [story.id, story.title, story.type, story.status, story.author, story.date])];
-  const csv = rows.map((row) => row.map((cell) => `"${String(cell).replaceAll('"', '""')}"`).join(",")).join("\n");
+  const csv = rows.map((row) => row.map(csvCell).join(",")).join("\n");
   const url = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
   const anchor = document.createElement("a");
   anchor.href = url;

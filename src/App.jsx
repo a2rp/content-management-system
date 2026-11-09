@@ -11,6 +11,14 @@ import Toast from "./components/toast";
 import { initialStories } from "./data";
 import styles from "./App.module.css";
 
+const nextStoryId = (stories) => {
+  const latest = stories.reduce((highest, story) => {
+    const match = /^MOR-(\d+)$/.exec(story.id);
+    return Math.max(highest, match ? Number(match[1]) : 0);
+  }, 0);
+  return `MOR-${String(latest + 1).padStart(4, "0")}`;
+};
+
 const App = () => {
   const [stories, setStories] = useState(initialStories);
   const [query, setQuery] = useState("");
@@ -26,8 +34,7 @@ const App = () => {
   const openStory = (story) => setDialog({ type: "view", story });
 
   const createStory = (story) => {
-    const nextStory = { ...story, id: `MOR-${String(Date.now()).slice(-4)}` };
-    setStories((current) => [nextStory, ...current]);
+    setStories((current) => [{ ...story, id: nextStoryId(current) }, ...current]);
     closeDialog();
     notify("Your story is in the editorial library.");
   };

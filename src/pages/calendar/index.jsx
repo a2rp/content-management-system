@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
 import { FiArrowLeft, FiArrowRight, FiCalendar, FiPlus } from "react-icons/fi";
-import { formatDate } from "../../data";
+import { formatDate, toLocalDateValue } from "../../data";
 import styles from "./styles.module.css";
 
-const toIsoDate = (date) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+const toIsoDate = toLocalDateValue;
 const todayDate = toIsoDate(new Date());
 
 const Calendar = ({ stories, onNewStory, onOpenStory }) => {
