@@ -4,6 +4,7 @@ import { formatDate } from "../../data";
 import styles from "./styles.module.css";
 
 const Overview = ({ stories, onNewContent, onOpenStory }) => {
+  const todayLabel = new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" });
   const inReview = stories.filter((story) => story.status === "In review");
   const scheduled = stories.filter((story) => story.status === "Scheduled").sort((a, b) => a.date.localeCompare(b.date));
   const drafts = stories.filter((story) => story.status === "Draft");
@@ -11,7 +12,7 @@ const Overview = ({ stories, onNewContent, onOpenStory }) => {
 
   return (
     <div className={styles.page}>
-      <div className={styles.pageNote}><span>EDITION 08</span><i /> <span>Tuesday, October 13, 2026</span><span className={styles.noteRight}>A little space for good work</span></div>
+      <div className={styles.pageNote}><span>EDITION 08</span><i /> <span>{todayLabel}</span><span className={styles.noteRight}>A little space for good work</span></div>
 
       <section className={styles.cover}>
         <div className={styles.coverText}>

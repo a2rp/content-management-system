@@ -13,7 +13,7 @@ Morrow is a frontend-only editorial workspace for planning, writing, reviewing, 
 - **Publishing calendar:** Browse a week or agenda, move between weeks, return to the current week, open a story, or start a story on a selected day. The selected date is carried into the editor.
 - **Content library:** Search by headline, summary, owner, or ID. Filter by workflow status and content type, sort by date or title, export the current view as CSV, open details, edit a story, change its status, or remove it.
 - **Review desk:** Read stories in the review queue, request a revision with a note, revisit requested changes, edit the story, or approve it into the publishing calendar.
-- **Story editor:** Create and update headlines, summaries, content types, workflow status, owners, dates, and story text. Scheduled stories require a current or future date.
+- **Story editor:** Create and update headlines, summaries, content types, workflow status, owners, dates, and story text. The editor, library, and review desk prevent scheduling a story with a past date.
 - **Feedback and safety:** Actions show clear toast feedback. Story details and forms use accessible dialogs, and story removal requires a confirmation dialog. Forms show inline validation messages.
 - **Navigation:** Search from the header with `Ctrl K` or `Cmd K`. The header stays available at the top, hides while scrolling down, and returns while scrolling up. The mobile menu and search control remain usable on small screens.
 

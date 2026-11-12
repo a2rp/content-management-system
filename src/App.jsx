@@ -8,7 +8,7 @@ import ReviewForm from "./components/reviewform";
 import ScrollToTop from "./components/scrollToTop";
 import StoryForm from "./components/storyform";
 import Toast from "./components/toast";
-import { initialStories } from "./data";
+import { initialStories, toLocalDateValue } from "./data";
 import styles from "./App.module.css";
 
 const nextStoryId = (stories) => {
@@ -46,6 +46,11 @@ const App = () => {
   };
 
   const updateStatus = (storyId, status) => {
+    const story = stories.find((item) => item.id === storyId);
+    if (status === "Scheduled" && story?.date < toLocalDateValue(new Date())) {
+      notify("Set the publish date to today or later in the library before scheduling.", "error");
+      return;
+    }
     setStories((current) => current.map((story) => story.id === storyId ? {
       ...story,
       status,
@@ -56,6 +61,10 @@ const App = () => {
   };
 
   const approveStory = (story) => {
+    if (story.date < toLocalDateValue(new Date())) {
+      notify("Set the publish date to today or later in the library before scheduling.", "error");
+      return;
+    }
     setStories((current) => current.map((item) => item.id === story.id ? { ...item, status: "Scheduled", reviewNote: "", updated: "Just now" } : item));
     notify("Approved and added to the publishing calendar.");
   };
